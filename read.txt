@@ -1,3 +1,21 @@
-yii migrate
+﻿yii migrate
 yii migrate --migrationPath=@yii/rbac/migrations/
-yii rbac-start/init
+
+
+yii rbac-start/init создаст в базе две роли - admin и user по стандарту RBAC
+yii rbac-admin-assign/init 1 чтобы дать роль админа пользователю с айди №1
+
+
+создание миграций по студенту
+
+yii migrate/create create_discipline_table  --fields=name:string,engl_name:string,author:string 
+
+yii migrate/create create_exam_table --fields=name_exam:string,engl_name_exam:string,number_of_questions:integer:notNull,time_of_action:timestamp,validity:boolean
+
+yii migrate/create create_discipline_exam_table --fields=discipline_id:integer:notNull:foreignKey(discipline),exam_id:integer:notNull:foreignKey(exam),number_of_questions:integer 
+
+yii migrate/create create_questions_table --fields=discipline_id:integer:notNull:foreignKey(discipline),questions_text:text,picture:text,view:string 
+
+yii migrate/create create_answers_table --fields=question_id:integer:notNull:foreignKey(questions),answers_name:string,status:boolean
+
+yii migrate/create create_student_table --fields=name:string,suname:string,midlename:string,engl_name:string,birthday:date,login:string,password:string
